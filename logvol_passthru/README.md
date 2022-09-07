@@ -1,5 +1,5 @@
 # Log Vol + Passthru Vol
-This is a demo showing on to stack HDF5 Log Vol on top of other HDF5 Vol, in particular
+This is a demo showing how to stack HDF5 Log Vol on top of other HDF5 Vol, in particular
 the [Passthru Vol](https://github.com/HDFGroup/hdf5/blob/develop/src/H5VLpassthru.c). The demo
 program follows the following pattern:
 `user application` -> `Log Vol` -> `Passthru Vol` -> `Native Vol`.
