@@ -26,8 +26,9 @@ CPPFLAGS="-DENABLE_PASSTHRU_LOGGING $CPPFLAGS" \
 % command.cfg
 % make -j 8 install
 ```
+## Passthru VOL
 The Passthru VOL comes together with HDF5. There's no need to install the Passthru VOL seperately.
-However, adding `-DENABLE_PASSTHRU_LOGGING` to `CPPFLAGS` makes the the Passthru VOL print
+However, adding `-DENABLE_PASSTHRU_LOGGING` to `CPPFLAGS` when building HDF5, makes the the Passthru VOL print
 addtional messages to `stdout` every time it is invoked.
 ## Log Vol
 This demo uses a Log Vol version from [this branch](https://github.com/yzanhua/vol-log-based/tree/pass_thru). Installation guide is available [here](https://github.com/yzanhua/vol-log-based/blob/pass_thru/doc/INSTALL.md). Here are the example commands for installtion:
