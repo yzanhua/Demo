@@ -47,7 +47,7 @@ HDF5_DIR=${HOME}/HDF5/1.13.2
 ## Test Program
 In the demo program [main.cpp](./main.cpp), each mpi process with rank `i` makes
 one `H5Dwrite` call to write numbers `100*i` to `100*i+9` to the dataset `/D`. 
-An example output using 4 mpi processes, **without using any plugin VOL** should be is:
+An example output using 4 mpi processes, **without using any plugin VOL** should be:
 ```shell
 % h5dump base.h5
 HDF5 "base.h5" {
@@ -65,8 +65,13 @@ GROUP "/" {
 }
 }
 ```
-When a `H5Dwrite` is made, it is expected to invoke Log VOL first, then Passthru
+When an `H5Dwrite` call is made, it is expected to invoke Log VOL first, then Passthru
 VOL and finally the native VOL.
+
+If Log Vol plugin is correctly used, the output file format should be `HDF5-LogVol`. If
+Passthru Vol is correclty used, several strings conataining substring "PASS THROUGH VOL"
+should be printed to `stdout`.
+
 ## Results.
 We provide a simple [makefile](./makefile) to run the project. 
 
