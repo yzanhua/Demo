@@ -9,7 +9,7 @@ program follows the following pattern:
 We require HDF5 version at least 1.13.0 and this demo is tested on version 1.13.2. Example
 commands to install HDF5:
 ```shell
-cat command.cfg
+% cat command.cfg
 #!/bin/sh
 VERSION=1.13.2
 INSTALL_DIR=$HOME/HDF5/$VERSION
@@ -21,7 +21,10 @@ CPPFLAGS="-DENABLE_PASSTHRU_LOGGING $CPPFLAGS" \
           --enable-parallel \
           --enable-build-mode=debug \
           CC=mpicc
-make -j 8 install
+
+# run commands.cfg, make and install
+% command.cfg
+% make -j 8 install
 ```
 The Passthru VOL comes together with HDF5. There's no need to install the Passthru VOL seperately.
 However, adding `-DENABLE_PASSTHRU_LOGGING` to `CPPFLAGS` makes the the Passthru VOL print
@@ -29,10 +32,15 @@ addtional messages to `stdout` every time it is invoked.
 ## Log Vol
 This demo uses a Log Vol version from [this branch](https://github.com/yzanhua/vol-log-based/tree/pass_thru). Installation guide is available [here](https://github.com/yzanhua/vol-log-based/blob/pass_thru/doc/INSTALL.md). Here are the example commands for installtion:
 ```shell
+% cat command.cfg
+#!/bin/sh
 INSTALL_DIR=${HOME}/LOG-VOL/install
 HDF5_DIR=${HOME}/HDF5/1.13.2
 ./configure --prefix=${INSTALL_DIR} --with-hdf5=${HDF5_DIR} --enable-debug
-make -j 8 install
+
+# run commands.cfg, make and install
+% command.cfg
+% make -j 8 install
 ```
 
 # Experiments
