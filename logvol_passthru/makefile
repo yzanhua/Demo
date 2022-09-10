@@ -9,6 +9,9 @@ C_INCLUDES=-I${HDF5_DIR}/include -I${LOGVOL_DIR}/include
 C_LOADS=-L${HDF5_DIR}/lib -lhdf5 -L${LOGVOL_DIR}/lib -lH5VL_log
 
 all:
+	mpicxx -o ${TARGET} ${TARGET}.cpp -g -O2 ${C_INCLUDES} ${C_LOADS} -DENABLE_PASSTHRU
+
+mpi:
 	mpicxx -o ${TARGET} ${TARGET}.cpp -g -O2 ${C_INCLUDES} ${C_LOADS}
 
 run:

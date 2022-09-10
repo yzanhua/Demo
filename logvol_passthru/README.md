@@ -66,20 +66,20 @@ GROUP "/" {
 }
 }
 ```
-When an `H5Dwrite` call is made, it is expected to invoke Log VOL first, then Passthru
-VOL and finally the native VOL.
+When an `H5Dwrite` call is made, and if `DENABLE_PASSTHRU` is defined at compile time, this program is expected to invoke Log VOL first, then Passthru VOL and finally the native VOL, 
 
 If Log Vol plugin is correctly used, the output file format should be `HDF5-LogVol`. If
-Passthru Vol is correclty used, several strings conataining substring "PASS THROUGH VOL"
-should be printed to `stdout`.
+Passthru Vol is correclty used, two strings (per mpi process) conataining substring "PASS THROUGH VOL DATASET Write" should be printed to `stdout`. This means a dataset write call is passed to the Passthru Vol twice (per mpi process). This is expected: once for writing data, and once for metadata.
 
 ## Results.
-We provide a simple [makefile](./makefile) to run the project. 
+We provide a simple [makefile](./makefile) to run the project. Running `make` compiles the program with 
+the passthru feature of Log Vol enabled. Running `make mpi` compiles the program without.
 
 ```shell
-# compile and run, output saved to out.txt
+# compile the program,
+# enable the passthru feature of LOG VOL
 % make
-% make run > out.txt
+% make run > passthru.txt
 
 # check output file type is LOG VOL
 % ${HOME}/LOG-VOL/install/bin/h5ldump -k test.h5
@@ -113,10 +113,15 @@ GROUP "/" {
 }
 }
 
-# check for difference
-% h5diff basic.h5 convert.h5
-
 # check Passthru VOL is invoked.
-% grep -r "PASS THROUGH VOL" out.txt | wc -l
-229
+% grep -r "PASS THROUGH VOL DATASET Write" passthru.txt | wc -l
+8
+
+# recompile program and run
+# this time, do not use the passthru feature of LOG VOL
+% make clean; make mpi
+% make run > mpi.txt
+
+% grep -r "PASS THROUGH VOL DATASET Write" mpi.txt | wc -l
+0
 ```

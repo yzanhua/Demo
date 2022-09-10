@@ -1,9 +1,8 @@
+#include "H5VL_log.h"
 #include <hdf5.h>
 #include <mpi.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "H5VL_log.h"
 
 #define N 10
 
@@ -76,7 +75,10 @@ int main(int argc, char **argv) {
   CHECK_ERR(err);
   err = H5Pset_vol(faplid, log_vlid, &logvol_info);
   CHECK_ERR(err);
-
+#ifdef ENABLE_PASSTHRU
+  err = H5Pset_passthru_read_write(faplid, true);
+  CHECK_ERR(err);
+#endif
   /* Create file using LOG VOL. */
   fid = H5Fcreate(file_name, H5F_ACC_TRUNC, H5P_DEFAULT, faplid);
   CHECK_ERR(fid);
