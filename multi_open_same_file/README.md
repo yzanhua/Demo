@@ -14,12 +14,12 @@ Each test folder contains a makefile and a test program. The procedures to run t
 # using MPI-IO
 % make clean; make;  # compile
 % make run  # run
-% make show # call h5dump over the output file
+% make show # call h5dump on the output file
 
-# using withou MPI-IO
+# using without MPI-IO
 % make clean; make nompi;  # compile
 % make run  # run
-% make show # call h5dump over the output file
+% make show # call h5dump on the output file
 ```
 
 ## Details on Each Test Case
@@ -39,7 +39,7 @@ Each test folder contains a makefile and a test program. The procedures to run t
 
     Using MPI-IO with 1 mpi process, the datasets "_LOG/_md_0" and  "_LOG/_ld_0" are missing. Using without MPI-IO, all 4 datasets appears without problem.
 
-1. [test2](./test2/): almost the same as [test1](./test1/) but added some `H5Flush` between `H5Dwrite` calls. Using MPI-IO with 1 mpi process, the program exits with segmentation fault. Using without MPI-IO, the program runs without problem and produces expected output file.
+1. [test2](./test2/): almost the same as [test1](./test1/) but added some `H5Flush` between `H5Dwrite` calls. Using MPI-IO with 1 mpi process, the program exits with assertion error. Using without MPI-IO, the program runs without problem and produces expected output file.
 
 1. [test3](./test3/): almost the same as [test2](./test2/) but added more `H5Flush`. Using MPI-IO with 1 mpi process, the program exits with error: `Unable to close file HDF5: infinite loop closing library ...`. Using without MPI-IO, the program runs without problem and produces expected output file.
 
@@ -312,5 +312,5 @@ Each test folder contains a makefile and a test program. The procedures to run t
     </details>
 
 ## Library Version:
-1. HDF5 1.13.2
+1. HDF5 1.13.2 (--enable-parallel --enable-build-mode=debug)
 2. MPICH 3.4.2
